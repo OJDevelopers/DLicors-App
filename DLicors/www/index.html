@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"> 
+	<title>D'Licors</title>
+    
+	<!--Jquery-->
+	<script src="js/jquery-1.10.2.js"></script>
+    <!--<script src="js/jquery-ui-1.10.4.custom.js"></script>-->
+    <script src="js/jquery.mobile.js"></script>
+    <script src="js/jquery.alerts.js"></script>
+
+    <!--Js App-->
+    <script src="js/Globalv.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/Productos.js"></script>
+    <script src="js/Carrito.js"></script>
+    <script src="js/Pedidos.js"></script>
+    <script src="js/Geolocalizacion.js"></script>
+    <script src="js/Registro.js"></script>
+
+    <!--Phonegap-->
+    <script src="cordova.js"></script>
+    <script src="js/PhoneGap-Common.js"></script>
+
+    <!--Estilos-->
+    <link href="style.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile.custom.structure.css" >
+    <link rel="stylesheet" type="text/css" href="css/jquery.alerts.css">
+
+    <script type="text/javascript">
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+        function VerificarRegistro1()
+        {
+            var idTelefono = localStorage["IdCelular"];
+            /*while(idTelefono != "")
+            {*/
+                var url = getWebApi() + "UserByCel/" + idTelefono;
+                loadDataArray(url,"Registro");
+            /*}*/
+        }
+
+        function VerificarRegistro2(AUsuario)
+        {
+            var Contenidos = $("div[id=ContentRegistro]");
+
+            if(AUsuario.length == 0)
+            {
+                localStorage["VR"] = "false";
+                
+                $.each(Contenidos, function (index, item) {
+                    $(item).attr("style", "display: block; background: none !important;");
+                });
+                
+            }
+            else
+            {
+                localStorage["VR"] = "true";
+                setCiudad(AUsuario[0].Geo.City.code);
+                setIdUsuario(AUsuario[0]._id);
+                setIdentificacionUsuario(AUsuario[0].BasicInfo.IdPersonal);
+                setDomicilios(AUsuario[0].Places);
+
+                $.each(Contenidos, function (index, item) {
+                    $(item).attr("style", "display: none !important;");
+                });
+            }
+        }
+
+        
+
+        $(document).ready(function () {
+
+            setTimeout(function () {
+                VerificarRegistro1();
+            }, 5000);
+            
+
+    		$('.LinkProductos').on("click",function() {
+	    		$.mobile.changePage('#Productos','slide');
+	    	});
+
+	    	$('.LinkPedidos').on("click",function() {
+	    		$.mobile.changePage('#Pedidos','slide');
+	    	});
+
+	    	$('.LinkConductor').on("click",function() {
+	    		$.mobile.changePage('#Conductor','slide');
+	    	});
+
+	    	$('#ConfirmarProductos').on("click", function () {
+	    	    var VR = localStorage["VR"];
+
+	    	    if (VR == "true")
+	    	    {
+	    		    $.mobile.changePage('#Carrito','slide');
+	    	    }
+	    	    else
+	    	    {
+	    	        alert('Para poder realizar el pedido debes de estar registrado. Si ya estas registrado intentalo de nuevo en unos momentos.');
+	    	    }
+	    	});
+
+	    	$('#ConfirmarPedido').on("click", function () {
+	    	    var VR = localStorage["VR"];
+
+	    	    if (VR == "true")
+	    	    {
+	    	        ConfirmarOrden();
+	    	    }
+	    	    else
+	    	    {
+	    	        alert('Para poder realizar el pedido debes de estar registrado. Si ya estas registrado intentalo de nuevo en unos momentos.');
+	    	    }
+	    	    
+	    	});
+
+	    	$('#BtnRegistro').on("click", function () {
+	    	    $.mobile.changePage('#Registro', 'slide');
+	    	});
+
+    	})
+    	
+    </script>
+</head>
+<body>
+	<!--<section data-role="page" id="Carga" data-theme="a">
+		<div style="width:100%; heigth: 100%; background: #fff;"></div>
+	</section>-->
+
+	<!---->
+
+	<section data-role="page" id="Index" data-theme="a">
+		<header>
+			<a href="#Index" class="logoApp"></a>
+			<ul>
+				<li class="iconos" onclick="$.mobile.changePage('#Carrito', 'slide');"><a href="#">ubicacion</a></li>
+				<li class="iconos" onclick="GetPositionInitial();"><a href="#Carrito">carrito</a></li>
+			</ul>
+            <div id="ContentRegistro" class="contentFin2" style="display:none !important;">
+                <button id="BtnRegistro">Registrarme</button>
+            </div>
+		</header>
+		<img src="images/portada.jpg" alt="D'licors App" class="portada">
+		<section class="contenedorApp">
+			<div class="buttons">
+				<button class="LinkProductos" id="buton1"></button>
+				<p>Productos</p>
+			</div>
+			<div class="buttons">
+				<button class="LinkPedidos" id="buton2"></button>
+				<p>Pedidos</p>
+			</div>
+			<div class="buttons">
+				<button class="LinkConductor" id="buton3"></button>
+				<p>Conductor elegido</p>
+			</div>
+            	
+		</section>
+	    <div class="separador"></div>
+		<footer>
+			<input type="text" class="buscador" value="Buscar">
+	        <button class="joderTio"></button>
+		</footer>
+	</section>
+
+	<section data-role="page" id="Productos" data-theme="a">
+		<header>
+			<a href="#Index" class="logoApp"></a>
+			<ul>
+                <li class="iconos" onclick="$.mobile.changePage('#Carrito', 'slide');"><a href="#">ubicacion</a></li>
+                <li class="iconos" onclick="GetPositionInitial();"><a href="#Carrito">carrito</a></li>
+			</ul>
+            <div id="ContentRegistro" class="contentFin2" style="display:none !important;">
+                <button id="BtnRegistro">Registrarme</button>
+            </div>
+		</header>
+		<img src="images/portada.jpg" alt="D'licors App" class="portada">
+		<section id="ContenedorProductos" class="contenedorApp2">
+		
+		</section>
+		<div class="contentFin2"><div class="total"><h3>Total pedido<br/><p id="TotalPedidoPar"></p></h3></div><button id="ConfirmarProductos">Confirmar</button></div>
+	    <div class="separador"></div>
+		<footer>
+			<input type="text" class="buscador" value="Buscar">
+	        <button class="joderTio"></button>
+		</footer>
+	</section>
+
+	<section data-role="page" id="Pedidos" data-theme="a">
+		<header>
+			<a href="#Index" class="logoApp"></a>
+			<ul>
+                <li class="iconos" onclick="$.mobile.changePage('#Carrito', 'slide');"><a href="#">ubicacion</a></li>
+                <li class="iconos" onclick="GetPositionInitial();"><a href="#Carrito">carrito</a></li>
+			</ul>
+            <div id="ContentRegistro" class="contentFin2" style="display:none !important;">
+                <button id="BtnRegistro">Registrarme</button>
+            </div>
+		</header>
+		<img src="images/portada.jpg" alt="D'licors App" class="portada">
+		<section class="contenedorApp2">
+			<h1 class="tituloPendientes">Pendientes</h1>
+			<table id="TBPendientes" class="tablaCarrito">
+			  <tr>
+			    <th>Producto</th> 
+                <th>Cantidad</th>
+			    <th>Precio</th>
+			  </tr>
+			  <tr>
+			    <td>Smith</td>
+                <td>20</td>
+			    <td>50</td>
+			  </tr>
+			  <tr>
+			    <td>Jackson</td>
+                <td>20</td>
+			    <td>94</td>
+			  </tr>
+			</table>
+			<h1 class="tituloPendientes">Despachados</h1>
+			<table id="TBDespachados" class="tablaCarrito">
+			  <tr>
+			    <th>Producto</th>
+                <th>Cantidad</th>
+			    <th>Precio</th>
+			  </tr>
+			  <tr>
+			    <td>Smith</td>
+                <td>20</td>
+			    <td>50</td>
+			  </tr>
+			  <tr>
+			    <td>Jackson</td>
+                <td>20</td>
+			    <td>94</td>
+			  </tr>
+			</table>
+            <h1 class="tituloPendientes">Entregados</h1>
+            <table id="TBEntregados" class="tablaCarrito">
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+                <tr>
+                    <td>Smith</td>
+                    <td>20</td>
+                    <td>50</td>
+                </tr>
+                <tr>
+                    <td>Jackson</td>
+                    <td>20</td>
+                    <td>94</td>
+                </tr>
+            </table>			
+		</section>
+		<!--<div class="contentFin2"><div class="total"><h3>Total pedido<br/><p>123.000</p></h3></div><button>Confirmar</button></div>-->
+	    <div class="separador"></div>
+		<footer>
+			<input type="text" class="buscador" value="Buscar">
+	        <button class="joderTio"></button>
+		</footer>
+	</section>
+
+	<section data-role="page" id="Conductor" data-theme="a">
+		<header>
+			<a href="#Index" class="logoApp"></a>
+			<ul>
+                <li class="iconos" onclick="$.mobile.changePage('#Carrito', 'slide');"><a href="#">ubicacion</a></li>
+                <li class="iconos" onclick="GetPositionInitial();"><a href="#Carrito">carrito</a></li>
+			</ul>
+            <div id="ContentRegistro" class="contentFin2" style="display:none !important;">
+                <button id="BtnRegistro">Registrarme</button>
+            </div>
+		</header>
+		<img src="images/portada.jpg" alt="D'licors App" class="portada">
+		<section class="contenedorApp">
+			<h2 class="tituloCond">Lugar</h2>
+			<div class="orgConductor">
+				<select>
+					<option>Hogar</option>
+					<option>Trabajo</option>
+					<option>Cine</option>
+				</select>
+				<a href="#" class="iconMapa"></a>
+				<a href="#" class="iconAg"></a>	
+			</div>
+			<h2 class="tituloCond">Tipo de veh&iacute;culo</h2>
+				<select class="orgConductor2">
+					<option>Camioneta</option>
+					<option>Automovil</option>
+				</select>	
+		</section>
+		<div class="contentFin"><button>Solicitar servicio</button></div>
+	    <div class="separador"></div>
+		<footer>
+			<input type="text" class="buscador" value="Buscar">
+	        <button class="joderTio"></button>
+		</footer>
+	</section>
+
+	<section data-role="page" id="Carrito" data-theme="a">
+		<header>
+			<a href="#Index" class="logoApp"></a>
+			<ul>
+                <li class="iconos" onclick="$.mobile.changePage('#Carrito', 'slide');"><a href="#">ubicacion</a></li>
+                <li class="iconos" onclick="GetPositionInitial();"><a href="#Carrito">carrito</a></li>
+			</ul>
+            <div id="ContentRegistro" class="contentFin2" style="display:none !important;">
+                <button id="BtnRegistro">Registrarme</button>
+            </div>
+		</header>
+		<img src="images/portada.jpg" alt="D'licors App" class="portada">
+		<section class="contenedorApp2">
+			<table id="ContendorProductosCarrito" class="tablaCarrito">
+			  <tr>
+			    <th>Producto</th> 
+                <th>Cantidad</th>
+			    <th>Precio</th>
+			  </tr>
+			  <tr>
+			    <td>Smith</td>
+                <td>20</td>
+			    <td>50</td>
+			  </tr>
+			  <tr>
+			    <td>Jackson</td>
+                <td>20</td>
+			    <td>94</td>
+			  </tr>
+			</table>			
+		</section>
+        <h3>Domicilio:</h3>
+        <select id="SelectDomicilio" class="orgConductor2" onchange="OnChangeCiudad(this)">
+            <option></option>
+            <option>Automovil</option>
+        </select>
+		<div class="contentFin2"><div class="total"><h3>Total pedido<br/><p id="ContenedorPrecioFinal"></p></h3></div><button id="ConfirmarPedido">Confirmar</button></div>
+	    <div class="separador"></div>
+		<footer>
+			<input type="text" class="buscador" value="Buscar">
+	        <button class="joderTio"></button>
+		</footer>
+	</section>
+
+    <section data-role="page" id="Registro" data-theme="a">
+		<header>
+			<a href="#" class="logoApp"></a>
+			<ul>
+				<li class="iconos" onclick="$.mobile.changePage('#Carrito', 'slide');"><a href="#">ubicacion</a></li>
+				<li class="iconos" onclick="GetPositionInitial();"><a href="#Carrito">carrito</a></li>
+			</ul>
+		</header>
+		<img src="images/portada.jpg" alt="D'licors App" class="portada">
+		<section class="contenedorApp2">
+			<h1 class="tituloPendientes2">Datos b&aacute;sicos</h1>
+			<div class="contentDatos">
+				<h3>Nombres:</h3><input id="NombreRegis" type="text"/>
+				<h3>Apellidos:</h3><input id="ApellidoRegis" type="text"/>
+                <h3>Identificacion:</h3><input id="IdentificaionRegis" type="text" />
+                <h3>Ciudad:</h3><select id="SelectCiudades" class="orgConductor2" onchange="OnChangeCiudad(this)">
+                                    <option>Camioneta</option>
+                                    <option>Automovil</option>
+                                </select>
+				<h3>E-mail:</h3><input id="EmailRegis" type="email" value="@"/>
+				<h3>Fecha de nacimiento:</h3><input id="FechaNacimientoRegis" type="date"/>
+			</div>
+			<div class="contentSave"><button class="save" onclick="GuardarRegistro();">Guardar</button><button class="cancel">Cancelar</button></div>
+			<h1 class="tituloPendientes2">Domicilio</h1>
+			<table id="ContentDomTemp" class="tablaReg">
+			  <tr>
+			    <th></th>
+			    <th>Domicilio</th> 
+			    <th>Departamento</th>
+			    <th>Ciudad</th> 
+			    <th>Barrio</th>
+			  </tr>
+			  <tr>
+			    <td><input type="checkbox"/></td>
+			    <td>Smith</td> 
+			    <td>50</td>
+			    <td>Medellin</td>
+			    <td>San javier</td>
+			  </tr>
+			  <tr>
+			    <td><input type="checkbox"/></td>
+			    <td>Smith</td> 
+			    <td>50</td>
+			    <td>Medellin</td>
+			    <td>San javier</td>
+			  </tr>
+			</table>
+			<div class="contentSave"><button class="save" onclick="MostrarDomiciliosNuevo();">Nuevo</button><button class="save">Modificar</button><button class="cancel">Eliminar</button></div>	
+            <div id="ContenedorNuevoDomicilio" style="display:none !important;">
+                <h3 class="tituloPendientes2">Nuevo Domicilio</h3>
+                <div class="contentDatos">
+                    <h3>Nombre:</h3><input id="NombreDomicilio" type="text" />
+                    <h3>Direccion:</h3><input id="DireccionDomicilio" type="text" />
+                    <h3>Barrio:</h3><input id="BarrioDomicilio" type="text" />
+                </div>
+                <div class="contentSave"><button class="save" onclick="AgregarNuevoDomicilio();">Crear</button></div>
+            </div>
+		</section>
+		<!--<div class="contentFin2"><div class="total"><h3>Total pedido<br/><p>123.000</p></h3></div><button>Confirmar</button></div>-->
+	    <div class="separador"></div>
+		<footer>
+			<input type="text" class="buscador" value="Buscar">
+	        <button class="joderTio"></button>
+		</footer>
+	</section>
+
+</body>
+</html>
