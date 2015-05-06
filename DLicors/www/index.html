@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8"> 
 	<title>D'Licors</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 	<!--Jquery-->
 	<script src="js/jquery-1.10.2.js"></script>
     <!--<script src="js/jquery-ui-1.10.4.custom.js"></script>-->
@@ -27,7 +27,7 @@
     <link href="style.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile.custom.structure.css" >
     <link rel="stylesheet" type="text/css" href="css/jquery.alerts.css">
-
+    
     <script type="text/javascript">
         document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -123,6 +123,7 @@
     	})
     	
     </script>
+    
 </head>
 <body>
 	<!--<section data-role="page" id="Carga" data-theme="a">
@@ -143,7 +144,7 @@
             </div>
 		</header>
 		<img src="images/portada.jpg" alt="D'licors App" class="portada">
-		<section class="contenedorApp">
+		    <section class="contenedorApp">
 			<div class="buttons">
 				<button class="LinkProductos" id="buton1"></button>
 				<p>Productos</p>
@@ -158,15 +159,22 @@
 			</div>
             	
 		</section>
+
+
+    
+		
 	    <div class="separador"></div>
 		<footer>
 			<input type="text" class="buscador" value="Buscar">
 	        <button class="joderTio"></button>
 		</footer>
+		
+		
 	</section>
 
 	<section data-role="page" id="Productos" data-theme="a">
 		<header>
+
 			<a href="#Index" class="logoApp"></a>
 			<ul>
                 <li class="iconos" onclick="$.mobile.changePage('#Carrito', 'slide');"><a href="#">ubicacion</a></li>
@@ -177,16 +185,80 @@
             </div>
 		</header>
 		<img src="images/portada.jpg" alt="D'licors App" class="portada">
-		<section id="ContenedorProductos" class="contenedorApp2">
-		
-		</section>
-		<div class="contentFin2"><div class="total"><h3>Total pedido<br/><p id="TotalPedidoPar"></p></h3></div><button id="ConfirmarProductos">Confirmar</button></div>
+		<div class="cuadroNegroP">
+				<div class="cuadroImagenP"></div>
+				<div class="cuadroTextoP">
+					<p>Smirnoff</p>
+				</div>
+				<a href="#"><div class="cuadroMas"></div></a>
+			</div>
+			<div class="cuadroNegroP">
+				<div class="cuadroImagenP"></div>
+				<div class="cuadroTextoP">
+					<p>Smirnoff</p>
+				</div>
+				<a href="#"><div class="cuadroMas"></div></a>
+			</div>
+		<div class="contentFin2">
+			<div class="total">
+				<h3 style="margin-bottom:5px;">Total pedido<br/>
+					<p id="TotalPedidoPar">
+					</p>
+				</h3>
+				<button id="ConfirmarProductos">Confirmar</button>
+			</div>
+		</div>
 	    <div class="separador"></div>
 		<footer>
 			<input type="text" class="buscador" value="Buscar">
 	        <button class="joderTio"></button>
 		</footer>
 	</section>
+
+<section data-role="page" id="Categorias" data-theme="a">
+		<header>
+			<div class="contadorCarrito">
+						<p>1</p>
+					</div>
+			<a href="#Index" class="logoApp"></a>
+			<ul>
+                <li class="iconos" onclick="$.mobile.changePage('#Carrito', 'slide');"><a href="#">ubicacion</a></li>
+                <li class="iconos" onclick="GetPositionInitial();"><a href="#Carrito">carrito</a>
+                	
+				</li>
+			</ul>
+            <div id="ContentRegistro" class="contentFin2" style="display:none !important;">
+                <button id="BtnRegistro">Registrarme</button>
+            </div>
+		</header>
+		<img src="images/portada.jpg" alt="D'licors App" class="portada">
+			<div class="cuadroNegro">
+				<div class="cuadroImagen"></div>
+				<div class="cuadroTexto">
+					<p>Smirnoff</p>
+				</div>
+				<a href="#"><div class="cuadroSig"></div></a>
+			</div>
+			<div class="cuadroNegro">
+				<div class="cuadroImagen"></div>
+				<div class="cuadroTexto">
+					<p>Smirnoff</p>
+				</div>
+				<a href="#"><div class="cuadroSig"></div></a>
+			</div>
+		<div class="contentFin2">
+			<div class="total">
+				<h3>Total pedido<br/>
+					<p id="TotalPedidoPar"></p></h3>
+			</div>
+		</div>
+	    <div class="separador"></div>
+		<footer>
+			<input type="text" class="buscador" value="Buscar">
+	        <button class="joderTio"></button>
+		</footer>
+	</section>
+
 
 	<section data-role="page" id="Pedidos" data-theme="a">
 		<header>

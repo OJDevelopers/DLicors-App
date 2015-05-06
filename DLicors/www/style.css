@@ -1,7 +1,248 @@
+/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+
 .ui-icon-loading {
 background: url(images/ajax-loader.gif);
 background-size: 2.875em 2.875em;
 }
+#ConfirmarProductos{
+	margin: 0 auto;
+}
+#TotalPedidoPar{
+	margin:10px;
+}
+/**categorias**/
+.cuadroNegro{
+background: #2c2c2c; /* Old browsers */
+background: -moz-linear-gradient(top,  #2c2c2c 0%, #000000 1%, #000000 1%, #111111 25%, #2b2b2b 50%, #1c1c1c 75%, #131313 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2c2c2c), color-stop(1%,#000000), color-stop(1%,#000000), color-stop(25%,#111111), color-stop(50%,#2b2b2b), color-stop(75%,#1c1c1c), color-stop(100%,#131313)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #2c2c2c 0%,#000000 1%,#000000 1%,#111111 25%,#2b2b2b 50%,#1c1c1c 75%,#131313 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #2c2c2c 0%,#000000 1%,#000000 1%,#111111 25%,#2b2b2b 50%,#1c1c1c 75%,#131313 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #2c2c2c 0%,#000000 1%,#000000 1%,#111111 25%,#2b2b2b 50%,#1c1c1c 75%,#131313 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #2c2c2c 0%,#000000 1%,#000000 1%,#111111 25%,#2b2b2b 50%,#1c1c1c 75%,#131313 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c2c2c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
+width: 100%;
+height: 70px;
+
+/**boxShadow**/
+-moz-box-shadow:inset 0px 0px 21px #ff00ff;
+-webkit-box-shadow:inset 0px 0px 21px #ff00ff;
+box-shadow:inset 0px 0px 21px #ff00ff;
+}
+.cuadroImagen{
+	width: 15%;
+	height: 82%;
+	background-image: url(images/productos/smirnoff.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	float: left;
+	margin-top: 10px;
+
+}
+.cuadroTexto{
+width: 73%;
+height: 100%;	
+float: left;
+color: white;
+font-weight: bolder;
+line-height: 70px;
+font-size: 1em;
+text-align: center;
+}
+.cuadroSig{
+	width: 12%;
+	height: 80%;
+	background-image: url(images/productos/sig.png);
+	background-repeat: no-repeat;
+	background-size: 70% 70%;
+	margin-top: 14px;
+	float: right;
+
+}
+.contentFin2{
+	width: 100% !important;
+}
+.total{
+	width: 100% !important;
+	margin-top: 10px;
+	text-align: center;
+}
+.contadorCarrito{
+position: absolute;
+z-index: 999;
+left: 94%;
+margin-top:7px; 
+width: 5%;
+height: 25px;
+border-radius: 50%;
+background-color: white;
+color: black;
+text-align: center;
+line-height: 25px;
+font-weight: bold;
+-moz-box-shadow: 1px 2px 3px #141414;
+-webkit-box-shadow: 2px -1px 3px #141414;
+box-shadow: 1px 2px 3px #141414;
+}
+
+/***productos**/
+.cuadroNegroP{
+background: #2c2c2c; /* Old browsers */
+background: -moz-linear-gradient(top,  #2c2c2c 0%, #000000 1%, #000000 1%, #111111 25%, #2b2b2b 50%, #1c1c1c 75%, #131313 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2c2c2c), color-stop(1%,#000000), color-stop(1%,#000000), color-stop(25%,#111111), color-stop(50%,#2b2b2b), color-stop(75%,#1c1c1c), color-stop(100%,#131313)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #2c2c2c 0%,#000000 1%,#000000 1%,#111111 25%,#2b2b2b 50%,#1c1c1c 75%,#131313 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #2c2c2c 0%,#000000 1%,#000000 1%,#111111 25%,#2b2b2b 50%,#1c1c1c 75%,#131313 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #2c2c2c 0%,#000000 1%,#000000 1%,#111111 25%,#2b2b2b 50%,#1c1c1c 75%,#131313 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #2c2c2c 0%,#000000 1%,#000000 1%,#111111 25%,#2b2b2b 50%,#1c1c1c 75%,#131313 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c2c2c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
+width: 100%;
+height: 70px;
+
+/**boxShadow**/
+-moz-box-shadow:inset 0px 0px 21px #ff00ff;
+-webkit-box-shadow:inset 0px 0px 21px #ff00ff;
+box-shadow:inset 0px 0px 21px #ff00ff;
+}
+.cuadroImagenP{
+	width: 15%;
+	height: 82%;
+	background-image: url(images/productos/smirnoff.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	float: left;
+	margin-top: 10px;
+
+}
+.cuadroTextoP{
+width: 73%;
+height: 100%;	
+float: left;
+color: white;
+font-weight: bolder;
+line-height: 70px;
+font-size: 1em;
+text-align: center;
+}
+.cuadroMas{
+	width: 12%;
+	height: 80%;
+	background-image: url(images/productos/mas.png);
+	background-repeat: no-repeat;
+	background-size: 70% 70%;
+	margin-top: 14px;
+	float: right;
+
+}
+.contentFin2{
+	width: 100% !important;
+}
+.total{
+	width: 100% !important;
+	margin-top: 10px;
+	text-align: center;
+}
+
 
 @media (min-width: 1025px) {}
 
